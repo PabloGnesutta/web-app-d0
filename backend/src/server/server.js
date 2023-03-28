@@ -20,10 +20,7 @@ module.exports = {
 
       if (contentType === 'application/json') {
         let data = '';
-        req.on('data', (chunk) => {
-          data += chunk;
-        });
-
+        req.on('data', chunk => (data += chunk));
         req.on('end', () => {
           try {
             req.body = JSON.parse(data);
