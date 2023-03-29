@@ -32,4 +32,22 @@ function upload(buffer, fileName) {
     .then(data => data);
 }
 
-export { get, post, upload };
+function download() {
+  let fileName = '';
+  return fetch(BASE_URL + '/downloads')
+    .then(res => {
+      const contentDisposition = res.headers
+        .get('content-disposition')
+        .split(';');
+      fileName = contentDisposition[1].split('=')[1];
+      return res.blob();
+    })
+    .then(data => {
+      return {
+        data,
+        fileName,
+      };
+    });
+}
+
+export { get, post, upload, download };

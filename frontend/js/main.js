@@ -1,6 +1,5 @@
 import { createUser, getUsers, getUser } from './userController.js';
-import { upload } from './api.js';
-console.log('main');
+import { upload, download } from './api.js';
 
 const fileInput = document.getElementById('fileInput');
 
@@ -19,3 +18,16 @@ function uploadFile(e) {
     console.log('response', response);
   };
 }
+
+const downloadBtn = document.getElementById('download');
+
+downloadBtn.addEventListener('click', async function (e) {
+  const { blob, fileName } = await download();
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+});
