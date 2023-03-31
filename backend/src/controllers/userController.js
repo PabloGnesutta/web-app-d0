@@ -1,5 +1,5 @@
 const { users } = require('../../data/users');
-const { _json, _404 } = require('../server/responses');
+const { _json, _404, _401 } = require('../server/responses');
 
 module.exports = {
   createUser(req, res) {
@@ -15,12 +15,15 @@ module.exports = {
   },
 
   getUsers(req, res) {
-    const returnValue = { ...users };
-    delete returnValue.idCount;
-    _json(res, {
-      msg: 'Usuarios obtenidos exitosamente',
-      data: returnValue,
-    });
+    console.log(req.userId);
+    if (req.userId) {
+      _json(res, {
+        msg: 'Usuarios obtenidos exitosamente',
+        data: users.list,
+      });
+    } else {
+      _401(res, 'Usuario no autenticado');
+    }
   },
 
   getUser(req, res) {

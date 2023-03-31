@@ -1,13 +1,19 @@
 module.exports = {
   users: {
     idCount: 2,
-    1: {
-      name: 'pablo',
-      age: 33,
-    },
-    2: {
-      name: 'malena',
-      age: 44,
-    },
+    list: [
+      {
+        id: 12,
+        name: 'pablo',
+        password: '123',
+        age: 33,
+      },
+      {
+        id: 23,
+        name: 'malena',
+        password: 'abc',
+        age: 44,
+      },
+    ],
   },
 };

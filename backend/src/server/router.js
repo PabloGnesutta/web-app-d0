@@ -4,6 +4,7 @@ const {
   getUser,
 } = require('../controllers/userController');
 const { uploadFile, downloadFile } = require('../controllers/fileController');
+const { login } = require('../controllers/authController');
 const { _404, _json } = require('./responses');
 
 module.exports = {
@@ -13,6 +14,7 @@ module.exports = {
       case 'POST':
         if (pathname === '/users') return createUser(req, res);
         else if (pathname === '/uploads') return uploadFile(req, res);
+        else if (pathname === '/login') return login(req, res);
         break;
       case 'GET':
         if (pathname === '/users') return getUsers(req, res);

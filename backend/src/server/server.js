@@ -13,6 +13,16 @@ module.exports = {
       const contentType = headers['content-type'];
       const url = new URL(req.url, BASE_DOMAIN);
 
+      const authHeader = req.headers['authorization'];
+      console.log('authheader', authHeader);
+      if (authHeader) {
+        const splitHeader = authHeader.split('Bearer ');
+        if (splitHeader.length === 2) {
+          const accessToken = splitHeader[1];
+          req.userId = accessToken.substring(3, accessToken.length - 3);
+        }
+      }
+
       req.query = {};
       for (const [key, value] of url.searchParams.entries()) {
         req.query[key] = value;
